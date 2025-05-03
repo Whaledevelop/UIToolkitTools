@@ -1,0 +1,38 @@
+<engine:UXML xmlns:engine="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UIToolkit/Portfolio.uss?fileID=7433441132597879392&amp;guid=7f0192fa619c0d945bbd3f515ea8ee55&amp;type=3#Portfolio" />
+    <engine:VisualElement name="root">
+        <engine:VisualElement name="header">
+            <engine:VisualElement name="photo" />
+            <engine:VisualElement name="titleBlock">
+                <engine:Label name="name" text="Никита Серебряков" />
+                <engine:Label name="position" text="Middle+/Senior Unity Developer" />
+            </engine:VisualElement>
+            <engine:VisualElement name="contacts">
+                <engine:VisualElement name="telegramIcon" />
+                <engine:VisualElement name="emailIcon" />
+                <engine:VisualElement name="linkedinIcon" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:TextElement name="about" />
+        <engine:VisualElement name="content">
+            <engine:VisualElement name="leftColumn">
+                <engine:Label text="• DOTween" />
+                <engine:Label text="• Zenject" />
+                <engine:Label text="• Odin Inspector" />
+                <engine:Label text="• Netcode for GameObjects" />
+                <engine:Label text="• Shader Graph" />
+                <engine:Label text="• Addressables" />
+            </engine:VisualElement>
+            <engine:VisualElement name="rightColumn">
+                <engine:TextElement text="Unity Dev - Game Studio A (2020–2023) Built core gameplay systems for 3D platformer." />
+                <engine:TextElement text="Unity Dev - Mobile Studio B (2018–2020) Led architecture for modular gameplay pipeline." />
+                <engine:TextElement text="Freelancer (2016–2018) Worked on AR/VR Unity apps for education and training." />
+                <engine:TextElement text="QA Engineer - Studio C (2014–2016) Automated tests and debugging tools in Unity." />
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:TextElement name="expectations" />
+        <engine:VisualElement name="footer">
+            <engine:Label text="Contacts" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>
