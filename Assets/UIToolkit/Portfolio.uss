@@ -1,108 +1,87 @@
 #root {
     flex-direction: column;
     width: 100%;
+    height: 100%;
     padding: 0;
     background-color: #F2F7F6;
-    -unity-font-definition: resource("Fonts/Inter");
+    font-family: Arial, sans-serif;
 }
 
 #header {
     flex-direction: row;
-    background-color: #1C3B3A;
-    padding: 12px 12px;
+    background-color: #f2f7f6;
+    padding: 20px;
     align-items: center;
-    justify-content: space-between;
-    color: white;
-    width: 100%;
 }
 
 #photo {
-    width: 50px;
-    height: 50px;
-    background-image: url("../Images/avatar.png");
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    background-image: resource("avatar");
     background-size: cover;
     background-position: center;
-    /*border-radius: 50%;*/
-    -unity-background-scale-mode: scale-to-fit;
+    background-color: #eeeeee;
+    margin-right: 20px;
 }
 
 #titleBlock {
     flex-direction: column;
-    margin-left: 12px;
-    margin-right: auto;
 }
 
 #name {
-    font-size: 18px;
-    color: white;
+    font-size: 48px;
+    color: #006160;
     -unity-font-style: bold;
+    margin-bottom: 10px;
 }
 
 #position {
-    font-size: 13px;
-    margin-top: -3px;
-    color: #D8EDEA; /* Soft Sage from your color scheme */
-}
-
-#contacts {
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-#contacts > * {
-    width: 20px;
-    height: 20px;
-    margin-left: 12px;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-#about {
-    background-color: #D8EDEA;
-    padding: 20px;
-    font-size: 14px;
+    font-size: 24px;
+    color: #006160;
+    margin-top: 5px;
 }
 
 #content {
     flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-}
-
-#leftColumn,
-#rightColumn {
-    flex-direction: column;
     flex-grow: 1;
-    padding: 20px;
 }
 
 #leftColumn {
-    background-color: #B7D4D1;
-    font-size: 13px;
-    padding-right: 10px;
+    flex-basis: 30%;
+    background-color: #d4e6e5;
+    padding: 20px;
 }
 
 #rightColumn {
-    font-size: 13px;
-    background-color: #F2F7F6;
-}
-
-#leftColumn > *,
-#rightColumn > * {
-    margin-bottom: 8px;
-}
-
-#expectations {
-    font-size: 13px;
+    flex-basis: 70%;
+    background-color: #f2f7f6;
     padding: 20px;
-    background-color: #D8EDEA;
 }
 
-#footer {
-    background-color: #345C5B;
-    color: white;
-    padding: 10px;
-    font-size: 11px;
-    -unity-text-align: middle-center;
+.section-header {
+    font-size: 24px;
+    color: #006160;
+    -unity-font-style: bold;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.company-name {
+    font-size: 18px;
+    -unity-font-style: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.section-margin-top {
+    margin-top: 30px;
+}
+
+#leftColumn Label {
+    margin-bottom: 10px;
+}
+
+#rightColumn Label {
+    margin-bottom: 8px;
 }

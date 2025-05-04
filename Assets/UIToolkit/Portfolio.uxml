@@ -4,35 +4,46 @@
         <engine:VisualElement name="header">
             <engine:VisualElement name="photo" />
             <engine:VisualElement name="titleBlock">
-                <engine:Label name="name" text="Никита Серебряков" />
-                <engine:Label name="position" text="Middle+/Senior Unity Developer" />
-            </engine:VisualElement>
-            <engine:VisualElement name="contacts">
-                <engine:VisualElement name="telegramIcon" />
-                <engine:VisualElement name="emailIcon" />
-                <engine:VisualElement name="linkedinIcon" />
+                <engine:Label name="name" text="НИКИТА СЕРЕБРЯКОВ" />
+                <engine:Label name="position" text="SENIOR UNITY DEVELOPER" />
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:TextElement name="about" />
         <engine:VisualElement name="content">
-            <engine:VisualElement name="leftColumn">
+            <engine:VisualElement name="leftColumn" style="width: 281px;">
+                <engine:Label text="КОНТАКТЫ" class="section-header" />
+                <engine:Label text="• @yourusername" />
+                <engine:Label text="• C#" />
                 <engine:Label text="• DOTween" />
-                <engine:Label text="• Zenject" />
-                <engine:Label text="• Odin Inspector" />
-                <engine:Label text="• Netcode for GameObjects" />
-                <engine:Label text="• Shader Graph" />
-                <engine:Label text="• Addressables" />
+                <engine:Label text="• UI Toolkit" />
+                <engine:Label text="НАВЫКИ" class="section-header" />
+                <engine:Label text="• yourusername" />
+                <engine:Label text="• C#" />
+                <engine:Label text="• DOTween" />
+                <engine:Label text="• UI Toolkit" />
+                <engine:Label text="НАВЫКИ" class="section-header" />
+                <engine:Label text="github.com/yourusernam" />
+                <engine:Label text="НАВЫКИ" class="section-header" />
+                <engine:Label text="github-comoursername" />
             </engine:VisualElement>
             <engine:VisualElement name="rightColumn">
-                <engine:TextElement text="Unity Dev - Game Studio A (2020–2023) Built core gameplay systems for 3D platformer." />
-                <engine:TextElement text="Unity Dev - Mobile Studio B (2018–2020) Led architecture for modular gameplay pipeline." />
-                <engine:TextElement text="Freelancer (2016–2018) Worked on AR/VR Unity apps for education and training." />
-                <engine:TextElement text="QA Engineer - Studio C (2014–2016) Automated tests and debugging tools in Unity." />
+                <engine:Label text="ОБО МНЕ" class="section-header" />
+                <engine:TextElement text="Высокая 1.5 лет оачиание вермонечности и янейевые" />
+                <engine:Label text="Обо мне" class="section-header section-margin-top" />
+                <engine:Label text="TapEmpire - Созданиебори" class="company-name" />
+                <engine:Label text="• Ryper–casual games operaat" />
+                <engine:Label text="• Satisfying puzzles internal library and tomplate for new gemes" />
+                <engine:Label text="Immortal Hunters" class="company-name section-margin-top" />
+                <engine:Label text="• Meta gameplay (city, quests, character progression, map" />
+                <engine:Label text="• Dialogue system node-basd editor Sounds, and some parts of core gameplay (combat)" />
+                <engine:Label text="GGWP" class="company-name section-margin-top" />
+                <engine:Label text="• Developed browser fighting game" />
+                <engine:Label text="• Combat system, client-server connection with blockchain" />
+                <engine:Label text="Playgendary" class="company-name section-margin-top" />
+                <engine:Label text="• R&amp;D/Services Great Empire" />
+                <engine:Label text="• Internal advertisemen, purchases, analytics plugins, and integration" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="• Match 2 game Great Empire" />
             </engine:VisualElement>
-        </engine:VisualElement>
-        <engine:TextElement name="expectations" />
-        <engine:VisualElement name="footer">
-            <engine:Label text="Contacts" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>
