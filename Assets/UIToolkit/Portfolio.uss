@@ -4,7 +4,7 @@
     height: 100%;
     padding: 0;
     background-color: #F2F7F6;
-    font-family: Arial, sans-serif;
+    -unity-font-definition: resource("Fonts/Inter");
 }
 
 #header {
@@ -18,7 +18,7 @@
     width: 200px;
     height: 200px;
     border-radius: 100px;
-    background-image: resource("avatar");
+    background-image: resource("Images/avatar");
     background-size: cover;
     background-position: center;
     background-color: #eeeeee;
