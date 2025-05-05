@@ -1,44 +1,110 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Sirenix.OdinInspector;
 
 public class ScreenshotWindow : OdinEditorWindow
 {
-    [Sirenix.OdinInspector.FilePath(Extensions = "png")]
-    public string exportPath = "Assets/Exports/Test.png";
+    [Flags]
+    private enum Format : byte
+    {
+        PNG = 1 << 0,
+        PDF = 1 << 1
+    }
 
+    [SerializeField, FolderPath]
+    private string _createDirectory = "Assets/Exports/";
+
+    [SerializeField]
+    private string _nameFormat = "Screenshot_{0}";
+
+    [SerializeField] 
+    private Format _format;
+    
+    private bool _pendingCapture;
+    
     [MenuItem("Tools/ScreenshotWindow")]
     private static void Open()
     {
-        GetWindow<ScreenshotWindow>().titleContent = new GUIContent("UI Exporter");
+        GetWindow<ScreenshotWindow>().Show();
     }
 
-    [Button]
-    private void CreateGameViewScreenshot()
+    protected override void OnEnable()
     {
-        var uiDocument = FindFirstObjectByType<UIDocument>();
-        ScreenshotUtility.Capture(exportPath, uiDocument);
+        base.OnEnable();
+        EditorApplication.update += OnEditorUpdate;
     }
 
-    [Button]
-    private void CreateScreenshotWithRecorder()
+    protected override void OnDisable()
     {
-        RecorderUtility.CaptureScreenshot(exportPath);
+        base.OnDisable();
+        EditorApplication.update -= OnEditorUpdate;
+    }
+
+    [Button(ButtonSizes.Large)]
+    private void CaptureScreenshot()
+    {
+        if (Application.isPlaying)
+        {
+            CaptureAsync().Forget();
+        }
+        else
+        {
+            _pendingCapture = true;
+            EditorApplication.EnterPlaymode();
+        }
+    }
+
+    private string CombinePath()
+    {
+        var baseName = string.Format(_nameFormat, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+        return Path.Combine(_createDirectory, baseName).Replace("\\", "/");
+    }
+
+    private void OnEditorUpdate()
+    {
+        if (_pendingCapture && Application.isPlaying)
+        {
+            _pendingCapture = false;
+            CaptureWithAppPlayAsync().Forget();
+        }
+    }
+
+    private async UniTaskVoid CaptureWithAppPlayAsync()
+    {
+        await UniTask.Delay(2000);
+        await CaptureAsync();
+        await UniTask.Delay(1000);
+        EditorApplication.ExitPlaymode();
+    }
+    
+    private async UniTask CaptureAsync()
+    {
+        if (!_format.HasFlag(Format.PNG) && !_format.HasFlag(Format.PDF))
+        {
+            Debug.LogError("No format selected for screenshot");
+            return;
+        }
+        var path = CombinePath();
+        RecorderUtility.CaptureScreenshot(path);
+        await UniTask.Delay(1000);
         AssetDatabase.Refresh();
-    }
-
-    [Button]
-    private void CreatePdfFromScreenshot()
-    {
-        var pngPath = exportPath;
-        var pdfPath = Path.ChangeExtension(pngPath, ".pdf");
-
-        PdfExportUtility.CreatePdfFromImage(pngPath, pdfPath);
-        Debug.Log("PDF created at: " + pdfPath);
-        
-                AssetDatabase.Refresh();
+        await UniTask.Delay(1000);
+        if (_format.HasFlag(Format.PDF))
+        {
+            var imagePath = path + ".png";
+            if (!File.Exists(imagePath))
+            {
+                Debug.LogErrorFormat("No image ar path {0}", imagePath);
+                return;
+            }
+            var pdfPath = Path.ChangeExtension(imagePath, ".pdf");
+            PdfExportUtility.CreatePdfFromImage(imagePath, pdfPath);
+        }
+        await UniTask.Delay(1000);
+        AssetDatabase.Refresh();
     }
 }

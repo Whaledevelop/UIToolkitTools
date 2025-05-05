@@ -1,13 +1,12 @@
 ﻿using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using System.IO;
+using UnityEngine;
 
 public static class PdfExportUtility
 {
     public static void CreatePdfFromImage(string imagePath, string pdfPath)
     {
-        if (!File.Exists(imagePath)) return;
-
         var doc = new PdfDocument();
         var page = doc.AddPage();
 

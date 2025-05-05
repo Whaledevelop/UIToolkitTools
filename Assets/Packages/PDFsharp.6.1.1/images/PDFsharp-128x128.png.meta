@@ -185,7 +185,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      PDFsharp-128x128_0: -3094148056134819598
+      PDFsharp-128x128_1: 3712214819095145137
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
