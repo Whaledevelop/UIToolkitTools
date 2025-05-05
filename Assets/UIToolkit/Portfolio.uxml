@@ -43,6 +43,19 @@
                 <engine:Label text="• Internal advertisemen, purchases, analytics plugins, and integration" />
                 <engine:Label text="MP Games" class="company-name section-margin-top" />
                 <engine:Label text="• Match 2 game Great Empire" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="MP Games" class="company-name section-margin-top" />
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>
