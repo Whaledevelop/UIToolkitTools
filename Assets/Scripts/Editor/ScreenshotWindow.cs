@@ -8,11 +8,18 @@ using Sirenix.OdinInspector;
 
 public class ScreenshotWindow : OdinEditorWindow
 {
-    [Flags]
-    private enum Format : byte
+    private enum Mode
     {
-        PNG = 1 << 0,
-        PDF = 1 << 1
+        PngPdf,
+        OnlyPNG,
+        OnlyPDF
+    }
+
+    private enum SizePreset
+    {
+        Custom,
+        Mobile_720x1560,
+        A4_1240x1754
     }
 
     [SerializeField, FolderPath]
@@ -21,11 +28,20 @@ public class ScreenshotWindow : OdinEditorWindow
     [SerializeField]
     private string _nameFormat = "Screenshot_{0}";
 
-    [SerializeField] 
-    private Format _format;
-    
+    [SerializeField, EnumToggleButtons]
+    private Mode _mode = Mode.PngPdf;
+
+    [SerializeField, EnumToggleButtons]
+    private SizePreset _sizePreset = SizePreset.Mobile_720x1560;
+
+    [SerializeField, ShowIf(nameof(_sizePreset), SizePreset.Custom)]
+    private int _width = 720;
+
+    [SerializeField, ShowIf(nameof(_sizePreset), SizePreset.Custom)]
+    private int _height = 1560;
+
     private bool _pendingCapture;
-    
+
     [MenuItem("Tools/ScreenshotWindow")]
     private static void Open()
     {
@@ -44,6 +60,13 @@ public class ScreenshotWindow : OdinEditorWindow
         EditorApplication.update -= OnEditorUpdate;
     }
 
+    [Button]
+    private void UpdateGameViewSize()
+    {
+        var (w, h) = GetSize();
+        GameViewEditorUtility.SetGameViewSize(w, h);
+    }
+
     [Button(ButtonSizes.Large)]
     private void CaptureScreenshot()
     {
@@ -56,6 +79,16 @@ public class ScreenshotWindow : OdinEditorWindow
             _pendingCapture = true;
             EditorApplication.EnterPlaymode();
         }
+    }
+
+    private (int width, int height) GetSize()
+    {
+        return _sizePreset switch
+        {
+            SizePreset.Mobile_720x1560 => (720, 1560),
+            SizePreset.A4_1240x1754 => (1240, 1754),
+            _ => (_width, _height)
+        };
     }
 
     private string CombinePath()
@@ -75,36 +108,42 @@ public class ScreenshotWindow : OdinEditorWindow
 
     private async UniTaskVoid CaptureWithAppPlayAsync()
     {
-        await UniTask.Delay(2000);
+        await UniTask.Delay(1000);
         await CaptureAsync();
         await UniTask.Delay(1000);
         EditorApplication.ExitPlaymode();
     }
-    
+
     private async UniTask CaptureAsync()
     {
-        if (!_format.HasFlag(Format.PNG) && !_format.HasFlag(Format.PDF))
-        {
-            Debug.LogError("No format selected for screenshot");
-            return;
-        }
+        UpdateGameViewSize();
+        
         var path = CombinePath();
-        RecorderUtility.CaptureScreenshot(path);
+
+        RecorderEditorUtility.CaptureScreenshot(path);
+        
         await UniTask.Delay(1000);
         AssetDatabase.Refresh();
         await UniTask.Delay(1000);
-        if (_format.HasFlag(Format.PDF))
+
+        if (_mode is Mode.PngPdf or Mode.OnlyPDF)
         {
             var imagePath = path + ".png";
             if (!File.Exists(imagePath))
             {
-                Debug.LogErrorFormat("No image ar path {0}", imagePath);
+                Debug.LogErrorFormat("No image at path {0}", imagePath);
                 return;
             }
+
             var pdfPath = Path.ChangeExtension(imagePath, ".pdf");
             PdfExportUtility.CreatePdfFromImage(imagePath, pdfPath);
+
+            if (_mode == Mode.OnlyPDF)
+            {
+                File.Delete(imagePath);
+            }
+            await UniTask.Delay(1000);
+            AssetDatabase.Refresh();
         }
-        await UniTask.Delay(1000);
-        AssetDatabase.Refresh();
     }
 }

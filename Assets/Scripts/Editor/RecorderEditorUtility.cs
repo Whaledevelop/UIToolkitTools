@@ -1,10 +1,10 @@
 ﻿#if UNITY_EDITOR
-using UnityEditor;
+
 using UnityEditor.Recorder;
 using UnityEditor.Recorder.Input;
 using UnityEngine;
 
-public static class RecorderUtility
+public static class RecorderEditorUtility
 {
     public static void CaptureScreenshot(string outputPath)
     {
