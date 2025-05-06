@@ -1,15 +1,17 @@
 <engine:UXML xmlns:engine="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UIToolkit/Portfolio.uss?fileID=7433441132597879392&amp;guid=7f0192fa619c0d945bbd3f515ea8ee55&amp;type=3#Portfolio" />
     <engine:VisualElement name="root">
-        <engine:VisualElement name="header">
-            <engine:VisualElement name="photo" />
-            <engine:VisualElement name="titleBlock">
-                <engine:Label name="name" text="НИКИТА СЕРЕБРЯКОВ" />
-                <engine:Label name="position" text="SENIOR UNITY DEVELOPER" />
+        <engine:VisualElement name="header" style="height: 177px;">
+            <engine:VisualElement name="photo-wrapper">
+                <engine:VisualElement name="photo" />
+            </engine:VisualElement>
+            <engine:VisualElement name="titleBlock" style="top: 9px;">
+                <engine:Label name="name" text="НИКИТА СЕРЕБРЯКОВ" style="font-size: 44px;" />
+                <engine:Label name="position" text="SENIOR UNITY DEVELOPER" style="font-size: 36px; -unity-font-style: bold; top: -12px;" />
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="content">
-            <engine:VisualElement name="leftColumn" style="width: 281px;">
+            <engine:VisualElement name="leftColumn">
                 <engine:Label text="КОНТАКТЫ" class="section-header" />
                 <engine:Label text="• @yourusername" />
                 <engine:Label text="• C#" />
@@ -26,36 +28,43 @@
                 <engine:Label text="github-comoursername" />
             </engine:VisualElement>
             <engine:VisualElement name="rightColumn">
-                <engine:Label text="ОБО МНЕ" class="section-header" />
-                <engine:TextElement text="Высокая 1.5 лет оачиание вермонечности и янейевые" />
-                <engine:Label text="Обо мне" class="section-header section-margin-top" />
-                <engine:Label text="TapEmpire - Созданиебори" class="company-name" />
-                <engine:Label text="• Ryper–casual games operaat" />
-                <engine:Label text="• Satisfying puzzles internal library and tomplate for new gemes" />
-                <engine:Label text="Immortal Hunters" class="company-name section-margin-top" />
-                <engine:Label text="• Meta gameplay (city, quests, character progression, map" />
-                <engine:Label text="• Dialogue system node-basd editor Sounds, and some parts of core gameplay (combat)" />
-                <engine:Label text="GGWP" class="company-name section-margin-top" />
-                <engine:Label text="• Developed browser fighting game" />
-                <engine:Label text="• Combat system, client-server connection with blockchain" />
-                <engine:Label text="Playgendary" class="company-name section-margin-top" />
-                <engine:Label text="• R&amp;D/Services Great Empire" />
-                <engine:Label text="• Internal advertisemen, purchases, analytics plugins, and integration" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="• Match 2 game Great Empire" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
-                <engine:Label text="MP Games" class="company-name section-margin-top" />
+                <engine:Label text="ОПЫТ" class="section-header" />
+                <engine:Label text="TapEmpire — команда в составе Game District, гиперказуалки" class="experience-block" />
+                <engine:Label text="Разрабатывал гиперказуальные мобильные игры: сатисфайинг, пазлы." class="experience-block" />
+                <engine:Label text="Три выпущенные игры: Doll Dance, Screw Jam, Wood Puzzle, также прототипы." class="experience-block" />
+                <engine:Label text="Сделал внутреннюю библиотеку для новых игр." class="experience-block" />
+                <engine:Label text="Спроектировал модульную архитектуру для быстрого добавления новых фичей и уровней." class="experience-block" />
+                <engine:Label text="Стек: Zenject, UniTask, Addressables, Odin, Spine, Quantum, Splines" class="experience-block" />
+                <engine:Label text="https://www.linkedin.com/company/tapempire" class="experience-block" />
+                <engine:Label text="http://www.gamedistrict.co/" class="experience-block" />
+                <engine:Label text="https://play.google.com/store/apps/details?id=com.tapempire.dolldance" class="experience-block" />
+                <engine:Label text="https://play.google.com/store/apps/details?id=com.tapempire.screwjam" class="experience-block" />
+                <engine:Label text="https://play.google.com/store/apps/details?id=com.tapempire.woodpuzzle" class="experience-block" />
+                <engine:Label text="Immortal Hunters — десктопная инди RPG" class="experience-block" />
+                <engine:Label text="Разработка мета-геймплея: город, квесты, развитие персонажа, карта." class="experience-block" />
+                <engine:Label text="Сделал нодовый редактор для создания диалогов. Интеграция звуков." class="experience-block" />
+                <engine:Label text="Дописывал логику в скиллах героев и монстров." class="experience-block" />
+                <engine:Label text="Стек: DOTS, ECS, Odin, UniTask, Addressables, Unity Profiler" class="experience-block" />
+                <engine:Label text="https://store.steampowered.com/app/2336760/Immortal_Hunters" class="experience-block" />
+                <engine:Label text="GGWP — браузерная игра для web3 платформы" class="experience-block" />
+                <engine:Label text="Файтинг Rough Rules: боёвка, клиент-сервер, блокчейн, уровни, VFX." class="experience-block" />
+                <engine:Label text="Руководство командой от лица единственного Unity-разработчика." class="experience-block" />
+                <engine:Label text="Стек: DOTween, Zenject, WebGL, Aptos SDK, Cinemachine, Timeline, Particles, Shader Graph, UniTask" class="experience-block" />
+                <engine:Label text="https://www.linkedin.com/company/ggwpworld/" class="experience-block" />
+                <engine:Label text="Playgendary — внутренние плагины для продуктовых команд" class="experience-block" />
+                <engine:Label text="Разработка и внедрение внутренних плагинов (реклама, покупки, аналитика, стор)." class="experience-block" />
+                <engine:Label text="R&amp;D/Services отдел." class="experience-block" />
+                <engine:Label text="Стек: Huawei SDK, Applovin Max, Unity IAP, Firebase, AppsFlyer, GPGS" class="experience-block" />
+                <engine:Label text="https://playgendary.com/" class="experience-block" />
+                <engine:Label text="MP Games — match 2 игра" class="experience-block" />
+                <engine:Label text="Разработка: скиллы, монстры, UI, магазин, ресурсы, инструменты." class="experience-block" />
+                <engine:Label text="Стек: Addressables, Asana, UniRX, Zenject, DOTween, UniTask" class="experience-block" />
+                <engine:Label text="https://drive.google.com/file/d/1pHCg96LxtqJD-Zn1r257YtpEVNGXlxaJ/view?usp=drive_link" class="experience-block" />
+                <engine:Label text="ИТОРУМ — обучающие симуляторы" class="experience-block" />
+                <engine:Label text="Начал как PHP разработчик, перешел на Unity, затем тимлид." class="experience-block" />
+                <engine:Label text="Мультиплеерные обучающие симуляторы." class="experience-block" />
+                <engine:Label text="Стек: PHP, WebSockets, WebGL, MySQL" class="experience-block" />
+                <engine:Label text="https://itorum.ru/" class="experience-block" />
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>
