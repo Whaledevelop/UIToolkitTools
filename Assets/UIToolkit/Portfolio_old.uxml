@@ -12,6 +12,20 @@
         </engine:VisualElement>
         <engine:VisualElement name="content">
             <engine:VisualElement name="leftColumn">
+                <engine:Label text="КОНТАКТЫ" class="section-header" />
+                <engine:Label text="• @yourusername" />
+                <engine:Label text="• C#" />
+                <engine:Label text="• DOTween" />
+                <engine:Label text="• UI Toolkit" />
+                <engine:Label text="НАВЫКИ" class="section-header" />
+                <engine:Label text="• yourusername" />
+                <engine:Label text="• C#" />
+                <engine:Label text="• DOTween" />
+                <engine:Label text="• UI Toolkit" />
+                <engine:Label text="НАВЫКИ" class="section-header" />
+                <engine:Label text="github.com/yourusernam" />
+                <engine:Label text="НАВЫКИ" class="section-header" />
+                <engine:Label text="github-comoursername" />
             </engine:VisualElement>
             <engine:VisualElement name="rightColumn">
             </engine:VisualElement>
