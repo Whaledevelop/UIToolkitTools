@@ -15,6 +15,26 @@
     height: 177px;
 }
 
+.header-contacts {
+    flex-direction: row;
+    margin-left: auto;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.header-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 25px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.last-icon {
+    margin-right: 0;
+}
+
 #photo-wrapper {
     width: 140px;
     height: 140px;
@@ -62,61 +82,97 @@
 }
 
 #leftColumn {
-    width: 400px;
+    width: 500px;
     background-color: #d4e6e5;
     padding: 32px;
+    font-size: 20px;
+    flex-direction: column;
 }
 
-#rightColumn {
+#experienceMarkdownTarget {
     flex-grow: 1;
     padding: 32px;
     background-color: #e6f0ef;
 }
 
-#rightColumn TextElement {
+#experienceMarkdownTarget TextElement {
     font-size: 20px;
     margin-bottom: 10px;
     white-space: normal;
 }
 
-.section-header {
-    font-size: 32px;
-    color: #006160;
-    -unity-font-style: bold;
-    margin-top: 32px;
-    margin-bottom: 20px;
+#aboutMarkdownTarget TextElement {
+    font-size: 20px;
+    margin-bottom: 12px;
+    white-space: normal;
 }
 
-.company-name {
+/* Контакты */
+#contacts-wrapper {
+    margin-top: 40px;
+}
+
+.contacts-title {
     font-size: 22px;
+    color: #004f4d;
     -unity-font-style: bold;
-    margin-top: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
 }
 
-.section-margin-top {
-    margin-top: 36px;
+.contact-line {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
-#leftColumn Label {
-    font-size: 20px;
-    margin-bottom: 10px;
+.contact-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
 }
 
-#rightColumn Label {
-    font-size: 20px;
-    margin-bottom: 10px;
+.telegram-icon {
+    background-image: resource("Icons/telegram");
 }
 
-.experience-block {
+.gmail-icon {
+    background-image: resource("Icons/gmail");
+}
+
+.github-icon {
+    background-image: resource("Icons/github");
+}
+
+.linkedin-icon {
+    background-image: resource("Icons/linkedin");
+}
+
+.contact-text {
     font-size: 18px;
-    margin-top: 20px;
+    color: #004f4d;
+    display: flex;
+    align-items: center;
+    white-space: normal;
 }
 
-.bold {
+/* Футер */
+#footer {
+    background-color: #b0d3d2;
+    padding-bottom: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-note {
+    font-size: 18px;
+    color: #f2f7f6;
+    margin: 24px;
+    align-self: center;
+    white-space: normal;
     -unity-font-style: bold;
-}
-
-.link {
-    color: #338a87;
 }

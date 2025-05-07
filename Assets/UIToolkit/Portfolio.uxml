@@ -9,12 +9,49 @@
                 <engine:Label name="name" text="НИКИТА СЕРЕБРЯКОВ" />
                 <engine:Label name="position" text="SENIOR UNITY DEVELOPER" />
             </engine:VisualElement>
+            
+            <engine:VisualElement name="headerContacts" class="header-contacts">
+                <engine:Image class="header-icon telegram-icon" />
+                <engine:Image class="header-icon gmail-icon" />
+                <engine:Image class="header-icon linkedin-icon" />
+                <engine:Image class="header-icon github-icon last-icon" />
+            </engine:VisualElement>
+
+            
         </engine:VisualElement>
+
         <engine:VisualElement name="content">
             <engine:VisualElement name="leftColumn">
+                <engine:VisualElement name="aboutMarkdownTarget" />
+
+                <engine:VisualElement name="contacts-wrapper">
+                    <engine:Label class="contacts-title" text="Контакты" />
+                    <engine:VisualElement name="contacts">
+                        <engine:VisualElement class="contact-line">
+                            <engine:Image class="contact-icon telegram-icon" />
+                            <engine:VisualElement name="telegramLink" class="contact-text" />
+                        </engine:VisualElement>
+                        <engine:VisualElement class="contact-line">
+                            <engine:Image class="contact-icon gmail-icon" />
+                            <engine:VisualElement name="gmailLink" class="contact-text" />
+                        </engine:VisualElement>
+                        <engine:VisualElement class="contact-line">
+                            <engine:Image class="contact-icon linkedin-icon" />
+                            <engine:VisualElement name="linkedinLink" class="contact-text" />
+                        </engine:VisualElement>
+                        <engine:VisualElement class="contact-line">
+                            <engine:Image class="contact-icon github-icon" />
+                            <engine:VisualElement name="githubLink" class="contact-text" />
+                        </engine:VisualElement>
+                    </engine:VisualElement>
+                </engine:VisualElement>
             </engine:VisualElement>
-            <engine:VisualElement name="rightColumn">
-            </engine:VisualElement>
+
+            <engine:VisualElement name="experienceMarkdownTarget" />
+        </engine:VisualElement>
+
+        <engine:VisualElement name="footer">
+            <engine:Label class="footer-note" text="Вёрстка PDF сделана в UI Toolkit и экспортирована с помощью UIToolkitTools" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>
