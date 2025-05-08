@@ -49,9 +49,5 @@
 
             <engine:VisualElement name="experienceMarkdownTarget" />
         </engine:VisualElement>
-
-        <engine:VisualElement name="footer">
-            <engine:Label class="footer-note" text="Вёрстка PDF сделана в UI Toolkit и экспортирована с помощью UIToolkitTools" />
-        </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

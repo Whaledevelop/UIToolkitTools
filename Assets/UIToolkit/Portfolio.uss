@@ -161,18 +161,18 @@
 }
 
 /* Футер */
-#footer {
-    background-color: #b0d3d2;
-    padding-bottom: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-}
+/*#footer {*/
+/*    background-color: #b0d3d2;*/
+/*    padding-bottom: 10px;*/
+/*    flex-direction: column;*/
+/*    align-items: flex-start;*/
+/*}*/
 
-.footer-note {
-    font-size: 18px;
-    color: #f2f7f6;
-    margin: 24px;
-    align-self: center;
-    white-space: normal;
-    -unity-font-style: bold;
-}
+/*.footer-note {*/
+/*    font-size: 18px;*/
+/*    color: #f2f7f6;*/
+/*    margin: 24px;*/
+/*    align-self: center;*/
+/*    white-space: normal;*/
+/*    -unity-font-style: bold;*/
+/*}*/

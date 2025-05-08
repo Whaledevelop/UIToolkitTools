@@ -4,7 +4,7 @@ using UnityEditor.Recorder;
 using UnityEditor.Recorder.Input;
 using UnityEngine;
 
-public static class RecorderEditorUtility
+public static class RecorderEditorUtility 
 {
     public static void CaptureScreenshot(string outputPath)
     {
