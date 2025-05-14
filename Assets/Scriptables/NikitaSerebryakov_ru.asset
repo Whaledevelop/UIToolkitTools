@@ -131,9 +131,9 @@ MonoBehaviour:
   - url: https://t.me/musli_kraba
     rect:
       serializedVersion: 2
-      x: 24.1
+      x: 21.8
       y: 3370
-      width: 312.1
+      width: 262.3
       height: 45
   - url: mailto:whaledevelop@gmail.com
     rect:
@@ -147,15 +147,15 @@ MonoBehaviour:
       serializedVersion: 2
       x: 24.1
       y: 3458
-      width: 312.1
-      height: 45
+      width: 472.4
+      height: 64.16
   - url: https://github.com/Whaledevelop
     rect:
       serializedVersion: 2
-      x: 24.1
-      y: 3503
-      width: 312.1
-      height: 45
+      x: 24.4
+      y: 3519
+      width: 346.91
+      height: 50.02
   - url: https://whaledevelop.itch.io/cave-miners
     rect:
       serializedVersion: 2
@@ -181,6 +181,6 @@ MonoBehaviour:
     rect:
       serializedVersion: 2
       x: 29.6
-      y: 2834
+      y: 2836
       width: 225
       height: 30
