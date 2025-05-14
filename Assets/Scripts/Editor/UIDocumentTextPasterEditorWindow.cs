@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using System.Collections.Generic;
 using System.IO;
+using UIToolkitTools;
 
 public class UIDocumentTextPasterEditorWindow : OdinEditorWindow
 {
@@ -13,17 +14,16 @@ public class UIDocumentTextPasterEditorWindow : OdinEditorWindow
     {
         GetWindow<UIDocumentTextPasterEditorWindow>().Show();
     }
+
     [SerializeField] private MarkdownStyleSettings _styleSettings;
+    [SerializeField, HideInInspector] private UIDocument _targetDocument;
+
     [TableList] public List<MarkdownBindings.Binding> Bindings = new();
 
-    [SerializeField, HideInInspector]
-    private UIDocument _targetDocument;
-    
     [Button("Load Bindings")]
     private void LoadBindings()
     {
         Bindings = MarkdownBindingStorage.Load().bindings;
-        Debug.Log($"Loaded bindings: {Bindings.Count}");
     }
 
     [Button("Save Bindings")]
@@ -31,15 +31,58 @@ public class UIDocumentTextPasterEditorWindow : OdinEditorWindow
     {
         var data = new MarkdownBindings { bindings = Bindings };
         MarkdownBindingStorage.Save(data);
-        Debug.Log("Bindings saved.");
     }
 
     [Button("Apply to Scene")]
     private void ApplyAll()
     {
+        if (!ValidateState()) return;
+
+        var container = _targetDocument.rootVisualElement;
+        var hex = new MarkdownColorHex(_styleSettings);
+
+        foreach (var binding in Bindings)
+        {
+            if (string.IsNullOrEmpty(binding.elementName)) continue;
+
+            var element = container.Q<VisualElement>(binding.elementName);
+            if (element == null)
+            {
+                Debug.LogWarning($"Skipped: element not found {binding.elementName}");
+                continue;
+            }
+
+            var markdown = GetBindingText(binding);
+            if (string.IsNullOrEmpty(markdown)) continue;
+
+            var richText = MarkdownToRichTextUtility.Convert(markdown, hex.Link, hex.Header, hex.Span);
+            MarkdownBindingUtility.ApplyRichText(element, richText);
+        }
+
+        MarkdownBindingUtility.ApplyContactLinks(container, hex);
+    }
+
+    private string GetBindingText(MarkdownBindings.Binding binding)
+    {
+        if (!string.IsNullOrEmpty(binding.rawText))
+        {
+            return binding.rawText;
+        }
+
+        if (!string.IsNullOrEmpty(binding.markdownPath) && File.Exists(binding.markdownPath))
+        {
+            return File.ReadAllText(binding.markdownPath);
+        }
+
+        Debug.LogWarning($"No valid markdown or raw text for: {binding.elementName}");
+        return null;
+    }
+    
+    private bool ValidateState()
+    {
         if (_targetDocument == null)
         {
-            var found = FindAnyObjectByType<UIDocument>();
+            var found = Object.FindAnyObjectByType<UIDocument>();
             if (found != null)
             {
                 _targetDocument = found;
@@ -48,75 +91,16 @@ public class UIDocumentTextPasterEditorWindow : OdinEditorWindow
             else
             {
                 Debug.LogError("UIDocument not found in the scene.");
-                return;
+                return false;
             }
         }
 
         if (_styleSettings == null)
         {
             Debug.LogError("MarkdownStyleSettings not assigned.");
-            return;
+            return false;
         }
 
-        var container = _targetDocument.rootVisualElement;
-
-        var linkHex = $"#{ColorUtility.ToHtmlStringRGB(_styleSettings.LinkColor)}";
-        var headerHex = $"#{ColorUtility.ToHtmlStringRGB(_styleSettings.HeaderColor)}";
-        var spanHex = $"#{ColorUtility.ToHtmlStringRGB(_styleSettings.SpanColor)}";
-
-        foreach (var binding in Bindings)
-        {
-            if (string.IsNullOrEmpty(binding.elementName) || string.IsNullOrEmpty(binding.markdownPath))
-                continue;
-
-            var target = container.Q<VisualElement>(binding.elementName);
-            if (target == null)
-            {
-                Debug.LogWarning($"Skipped: element not found {binding.elementName}");
-                continue;
-            }
-
-            if (!File.Exists(binding.markdownPath))
-            {
-                Debug.LogWarning($"Skipped: file not found {binding.markdownPath}");
-                continue;
-            }
-
-            var md = File.ReadAllText(binding.markdownPath);
-            var richText = MarkdownToRichTextUtility.Convert(md, linkHex, headerHex, spanHex);
-            ApplyLink(target, richText);
-        }
-
-        var contactLinks = new Dictionary<string, string>
-        {
-            { "telegramLink", "[https://t.me/musli_kraba](https://t.me/musli_kraba) (preferred)" },
-            { "githubLink", "[https://github.com/Whaledevelop](https://github.com/Whaledevelop)" },
-            { "gmailLink", "[whaledevelop@gmail.com](mailto:whaledevelop@gmail.com)" },
-            { "linkedinLink", "[https://www.linkedin.com/in/nikita-serebriakov-897644261/](https://www.linkedin.com/in/nikita-serebriakov-897644261/)" }
-        };
-
-        foreach (var pair in contactLinks)
-        {
-            var element = container.Q<VisualElement>(pair.Key);
-            if (element == null)
-            {
-                Debug.LogWarning($"Link not found: {pair.Key}");
-                continue;
-            }
-
-            var contactRichText = MarkdownToRichTextUtility.Convert(pair.Value, linkHex, headerHex, spanHex);
-            ApplyLink(element, contactRichText);
-        }
-    }
-
-    private void ApplyLink(VisualElement element, string richText)
-    {
-        element.Clear();
-        element.Add(new TextElement
-        {
-            enableRichText = true,
-            text = richText,
-            style = { whiteSpace = WhiteSpace.Normal }
-        });
+        return true;
     }
 }

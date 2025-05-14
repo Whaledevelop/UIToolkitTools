@@ -6,8 +6,8 @@
                 <engine:VisualElement name="photo" />
             </engine:VisualElement>
             <engine:VisualElement name="titleBlock">
-                <engine:Label name="name" text="НИКИТА СЕРЕБРЯКОВ" />
-                <engine:Label name="position" text="SENIOR UNITY DEVELOPER" />
+                <engine:Label name="name" />
+                <engine:Label name="position"/>
             </engine:VisualElement>
             
             <engine:VisualElement name="headerContacts" class="header-contacts">
@@ -25,7 +25,7 @@
                 <engine:VisualElement name="aboutMarkdownTarget" />
 
                 <engine:VisualElement name="contacts-wrapper">
-                    <engine:Label class="contacts-title" text="Контакты" />
+                    <engine:Label name="contacts-title" class="contacts-title" />
                     <engine:VisualElement name="contacts">
                         <engine:VisualElement class="contact-line">
                             <engine:Image class="contact-icon telegram-icon" />

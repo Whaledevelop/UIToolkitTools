@@ -28,13 +28,13 @@ public static class PdfUtility
         doc.Save(pdfPath);
     }
 
-    public static void AddManualLinkAnnotations(string pdfPath, List<ManualLinkData.ManualLinkRect> links, int dpi = 150)
+    public static void AddManualLinkAnnotations(string pdfPath, List<UIDocumentImportContentData.ManualLinkRect> linkRects, int dpi = 150)
     {
         var doc = PdfReader.Open(pdfPath, PdfDocumentOpenMode.Modify);
         var page = doc.Pages[0];
         var scale = PointsPerInch / dpi;
 
-        foreach (var link in links)
+        foreach (var link in linkRects)
         {
             var r = link.rect;
             var pdfX = r.x * scale;
