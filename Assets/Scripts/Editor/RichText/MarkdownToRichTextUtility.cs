@@ -2,7 +2,7 @@
 
 public static class MarkdownToRichTextUtility
 {
-    public static string Convert(string markdown, string linkColor, string headerColor, string spanColor)
+    public static string Convert(string markdown, string linkColor = null, string headerColor = null, string spanColor = null)
     {
         if (string.IsNullOrWhiteSpace(markdown))
             return string.Empty;

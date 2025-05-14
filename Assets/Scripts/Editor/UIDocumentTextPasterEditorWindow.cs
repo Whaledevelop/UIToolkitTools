@@ -13,42 +13,28 @@ public class UIDocumentTextPasterEditorWindow : OdinEditorWindow
     {
         GetWindow<UIDocumentTextPasterEditorWindow>().Show();
     }
+    [SerializeField] private MarkdownStyleSettings _styleSettings;
+    [TableList] public List<MarkdownBindings.Binding> Bindings = new();
 
-    [SerializeField]
+    [SerializeField, HideInInspector]
     private UIDocument _targetDocument;
-
-    [TitleGroup("Цвета Rich Text")]
-    [ColorUsage(true, true)]
-    public Color LinkColor = new(0.2f, 0.54f, 0.53f); // #338a87
-
-    [ColorUsage(true, true)]
-    public Color HeaderColor = new(0f, 0.38f, 0.38f); // #006160
-
-    [ColorUsage(true, true)]
-    public Color SpanColor = new(0f, 0.38f, 0.38f); // #006160
     
-    [ColorUsage(true, true)]
-    public Color ContactLinkColor = new(0f, 0.38f, 0.38f); // #006160
-
-    [TableList]
-    public List<MarkdownBindings.Binding> Bindings = new();
-
-    [Button("Загрузить биндинги")]
+    [Button("Load Bindings")]
     private void LoadBindings()
     {
         Bindings = MarkdownBindingStorage.Load().bindings;
-        Debug.Log($"Загружено биндингов: {Bindings.Count}");
+        Debug.Log($"Loaded bindings: {Bindings.Count}");
     }
 
-    [Button("Сохранить биндинги")]
+    [Button("Save Bindings")]
     private void SaveBindings()
     {
         var data = new MarkdownBindings { bindings = Bindings };
         MarkdownBindingStorage.Save(data);
-        Debug.Log("Биндинги сохранены.");
+        Debug.Log("Bindings saved.");
     }
 
-    [Button("Применить в сцене")]
+    [Button("Apply to Scene")]
     private void ApplyAll()
     {
         if (_targetDocument == null)
@@ -57,20 +43,26 @@ public class UIDocumentTextPasterEditorWindow : OdinEditorWindow
             if (found != null)
             {
                 _targetDocument = found;
-                Debug.LogWarning($"UIDocument не был назначен. Автоматически найден: {_targetDocument.name}");
+                Debug.LogWarning($"UIDocument was not assigned. Found automatically: {_targetDocument.name}");
             }
             else
             {
-                Debug.LogError("UIDocument не найден в сцене.");
+                Debug.LogError("UIDocument not found in the scene.");
                 return;
             }
         }
 
+        if (_styleSettings == null)
+        {
+            Debug.LogError("MarkdownStyleSettings not assigned.");
+            return;
+        }
+
         var container = _targetDocument.rootVisualElement;
 
-        string linkHex = $"#{ColorUtility.ToHtmlStringRGB(LinkColor)}";
-        string headerHex = $"#{ColorUtility.ToHtmlStringRGB(HeaderColor)}";
-        string spanHex = $"#{ColorUtility.ToHtmlStringRGB(SpanColor)}";
+        var linkHex = $"#{ColorUtility.ToHtmlStringRGB(_styleSettings.LinkColor)}";
+        var headerHex = $"#{ColorUtility.ToHtmlStringRGB(_styleSettings.HeaderColor)}";
+        var spanHex = $"#{ColorUtility.ToHtmlStringRGB(_styleSettings.SpanColor)}";
 
         foreach (var binding in Bindings)
         {
@@ -80,60 +72,51 @@ public class UIDocumentTextPasterEditorWindow : OdinEditorWindow
             var target = container.Q<VisualElement>(binding.elementName);
             if (target == null)
             {
-                Debug.LogWarning($"Пропущен: не найден элемент {binding.elementName}");
+                Debug.LogWarning($"Skipped: element not found {binding.elementName}");
                 continue;
             }
 
             if (!File.Exists(binding.markdownPath))
             {
-                Debug.LogWarning($"Пропущен: файл не найден {binding.markdownPath}");
+                Debug.LogWarning($"Skipped: file not found {binding.markdownPath}");
                 continue;
             }
 
             var md = File.ReadAllText(binding.markdownPath);
             var richText = MarkdownToRichTextUtility.Convert(md, linkHex, headerHex, spanHex);
-
-            target.Clear();
-            target.Add(new TextElement
-            {
-                enableRichText = true,
-                text = richText,
-                style = { whiteSpace = WhiteSpace.Normal }
-            });
+            ApplyLink(target, richText);
         }
-        
-        var contactLinkColor = $"#{ColorUtility.ToHtmlStringRGB(ContactLinkColor)}";
 
-        ApplyContactLinks(container, contactLinkColor, headerHex, spanHex);
-        Debug.Log("Все биндинги применены.");
-    }
-
-    private void ApplyContactLinks(VisualElement container, string linkHex, string headerHex, string spanHex)
-    {
-        var contactBindings = new Dictionary<string, string>
+        var contactLinks = new Dictionary<string, string>
         {
-            { "telegramLink", "[telegram](https://t.me/musli_kraba) (предпочтительно)" },
-            { "githubLink", "[github](https://github.com/Whaledevelop)" },
-            { "gmailLink", "[gmail](mailto:whaledevelop@gmail.com)" },
-            { "linkedinLink", "[linkedin](https://www.linkedin.com/in/nikita-serebriakov-897644261/)" }
+            { "telegramLink", "[https://t.me/musli_kraba](https://t.me/musli_kraba) (preferred)" },
+            { "githubLink", "[https://github.com/Whaledevelop](https://github.com/Whaledevelop)" },
+            { "gmailLink", "[whaledevelop@gmail.com](mailto:whaledevelop@gmail.com)" },
+            { "linkedinLink", "[https://www.linkedin.com/in/nikita-serebriakov-897644261/](https://www.linkedin.com/in/nikita-serebriakov-897644261/)" }
         };
 
-        foreach (var pair in contactBindings)
+        foreach (var pair in contactLinks)
         {
             var element = container.Q<VisualElement>(pair.Key);
             if (element == null)
             {
-                Debug.LogWarning($"Контакт не найден: {pair.Key}");
+                Debug.LogWarning($"Link not found: {pair.Key}");
                 continue;
             }
 
-            element.Clear();
-            element.Add(new TextElement
-            {
-                enableRichText = true,
-                text = MarkdownToRichTextUtility.Convert(pair.Value, linkHex, headerHex, spanHex),
-                style = { whiteSpace = WhiteSpace.Normal }
-            });
+            var contactRichText = MarkdownToRichTextUtility.Convert(pair.Value, linkHex, headerHex, spanHex);
+            ApplyLink(element, contactRichText);
         }
+    }
+
+    private void ApplyLink(VisualElement element, string richText)
+    {
+        element.Clear();
+        element.Add(new TextElement
+        {
+            enableRichText = true,
+            text = richText,
+            style = { whiteSpace = WhiteSpace.Normal }
+        });
     }
 }

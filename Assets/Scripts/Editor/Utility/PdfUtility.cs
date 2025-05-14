@@ -28,7 +28,7 @@ public static class PdfUtility
         doc.Save(pdfPath);
     }
 
-    public static void AddManualLinkAnnotations(string pdfPath, List<ScreenshotWindow.ManualLinkRect> links, int dpi = 150)
+    public static void AddManualLinkAnnotations(string pdfPath, List<ManualLinkData.ManualLinkRect> links, int dpi = 150)
     {
         var doc = PdfReader.Open(pdfPath, PdfDocumentOpenMode.Modify);
         var page = doc.Pages[0];

@@ -17,28 +17,11 @@ public class ScreenshotWindow : OdinEditorWindow
         OnlyPDF
     }
 
-    private enum SizePreset
-    {
-        Custom,
-        Mobile_720x1560,
-        A4_1240x1754
-    }
+    [FoldoutGroup("Size Settings"), SerializeField]
+    private int _width = 720;
 
-    [Serializable]
-    public class ManualLinkRect
-    {
-        public string url;
-        public Rect rect;
-    }
-
-    [FoldoutGroup("Size Settings"), SerializeField, EnumToggleButtons]
-    private SizePreset _sizePreset = SizePreset.Mobile_720x1560;
-
-    [FoldoutGroup("Size Settings"), ShowIf(nameof(_sizePreset), SizePreset.Custom)]
-    [SerializeField] private int _width = 720;
-
-    [FoldoutGroup("Size Settings"), ShowIf(nameof(_sizePreset), SizePreset.Custom)]
-    [SerializeField] private int _height = 1560;
+    [FoldoutGroup("Size Settings"), SerializeField]
+    private int _height = 1560;
 
     [FoldoutGroup("Capture Settings"), SerializeField, EnumToggleButtons]
     private Mode _mode = Mode.PngPdf;
@@ -52,10 +35,10 @@ public class ScreenshotWindow : OdinEditorWindow
     [FoldoutGroup("Capture Settings"), SerializeField]
     private string _nameFormat = "Screenshot_{0}";
 
-    [FoldoutGroup("Manual Link Areas"), TableList(AlwaysExpanded = true)]
-    public List<ManualLinkRect> ManualLinks = new();
+    [FoldoutGroup("Manual Link Areas"), SerializeField]
+    private ManualLinkData _manualLinkData;
 
-    [FoldoutGroup("Manual Link Areas")] 
+    [FoldoutGroup("Manual Link Areas")]
     public bool ShowLinksAreas;
 
     [FoldoutGroup("Size Settings"), Button(ButtonSizes.Large)]
@@ -63,7 +46,7 @@ public class ScreenshotWindow : OdinEditorWindow
     {
         GameViewEditorUtility.SetGameViewSize(_width, _height);
     }
-    
+
     [BoxGroup("Capture"), Button(ButtonSizes.Large)]
     private void CaptureScreenshot()
     {
@@ -100,12 +83,7 @@ public class ScreenshotWindow : OdinEditorWindow
 
     private (int width, int height) GetSize()
     {
-        return _sizePreset switch
-        {
-            SizePreset.Mobile_720x1560 => (720, 1560),
-            SizePreset.A4_1240x1754 => (1240, 1754),
-            _ => (_width, _height)
-        };
+        return (_width, _height);
     }
 
     private string CombinePath()
@@ -138,7 +116,6 @@ public class ScreenshotWindow : OdinEditorWindow
 
     private async UniTask CaptureAsync()
     {
-        
         var path = CombinePath();
 
         if (_mode is not Mode.OnlyPDF)
@@ -159,7 +136,7 @@ public class ScreenshotWindow : OdinEditorWindow
 
             var pdfPath = Path.ChangeExtension(imagePath, ".pdf");
             PdfUtility.CreatePdfFromImage(imagePath, pdfPath, _dpi);
-            PdfUtility.AddManualLinkAnnotations(pdfPath, ManualLinks, _dpi);
+            PdfUtility.AddManualLinkAnnotations(pdfPath, _manualLinkData.Links, _dpi);
 
             if (_mode == Mode.OnlyPDF)
                 File.Delete(imagePath);
@@ -173,10 +150,10 @@ public class ScreenshotWindow : OdinEditorWindow
     {
         var doc = UnityEngine.Object.FindFirstObjectByType<UIDocument>();
         if (doc != null)
-            ShowDebugOverlay(doc, ManualLinks);
+            ShowDebugOverlay(doc, _manualLinkData.Links);
     }
-    
-    public static void ShowDebugOverlay(UIDocument doc, List<ScreenshotWindow.ManualLinkRect> links)
+
+    public static void ShowDebugOverlay(UIDocument doc, List<ManualLinkData.ManualLinkRect> links)
     {
         var root = doc.rootVisualElement;
         var old = root.Q<VisualElement>("DebugOverlay");
@@ -214,40 +191,16 @@ public class ScreenshotWindow : OdinEditorWindow
 
         root.Add(overlay);
     }
-    
+
     [FoldoutGroup("Manual Link Areas"), Button("Save Links")]
     private void SaveLinks()
     {
-        var json = JsonUtility.ToJson(new ManualLinkList { links = ManualLinks }, true);
-        var path = GetLinksSavePath();
-        File.WriteAllText(path, json);
-        Debug.Log($"[ScreenshotWindow] Links saved to: {path}");
+        _manualLinkData.Save();
     }
 
     [FoldoutGroup("Manual Link Areas"), Button("Load Links")]
     private void LoadLinks()
     {
-        var path = GetLinksSavePath();
-        if (!File.Exists(path))
-        {
-            Debug.LogWarning("[ScreenshotWindow] No saved links found.");
-            return;
-        }
-
-        var json = File.ReadAllText(path);
-        var loaded = JsonUtility.FromJson<ManualLinkList>(json);
-        ManualLinks = loaded.links ?? new List<ManualLinkRect>();
-        Debug.Log($"[ScreenshotWindow] Loaded {ManualLinks.Count} links from: {path}");
-    }
-
-    private string GetLinksSavePath()
-    {
-        return Path.Combine(Application.persistentDataPath, "manual_links.json");
-    }
-
-    [Serializable]
-    private class ManualLinkList
-    {
-        public List<ManualLinkRect> links;
+        _manualLinkData.Load();
     }
 }
