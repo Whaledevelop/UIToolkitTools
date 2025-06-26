@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bindings:
   - elementName: experienceMarkdownTarget
-    markdownPath: "D:\\ObsidianVault\\\u041F\u043E\u0440\u0442\u0444\u043E\u043B\u0438\u043E\\\u041E\u043F\u044B\u0442.md"
+    markdownPath: "D:\\ObsidianVault\\\u041F\u043E\u0440\u0442\u0444\u043E\u043B\u0438\u043E\\\u041E\u043F\u044B\u0442
+      (\u0430\u043D\u0433\u043B).md"
     rawText: 
   - elementName: aboutMarkdownTarget
     markdownPath: "D:\\ObsidianVault\\\u041F\u043E\u0440\u0442\u0444\u043E\u043B\u0438\u043E\\\u041E
-      \u0441\u0435\u0431\u0435.md"
+      \u0441\u0435\u0431\u0435 (\u0430\u043D\u0433\u043B).md"
     rawText: 
   - elementName: name
     markdownPath: 
@@ -68,119 +69,119 @@ MonoBehaviour:
   - url: http://www.gamedistrict.co/
     rect:
       serializedVersion: 2
-      x: 932.08
-      y: 251.44
+      x: 868.8
+      y: 249.7
       width: 162.1
       height: 50
   - url: https://play.google.com/store/apps/details?id=com.tapempire.dolldance
     rect:
       serializedVersion: 2
       x: 575.9
-      y: 360.7
+      y: 336.6
       width: 114.2
       height: 32.6
   - url: https://play.google.com/store/apps/details?id=com.tapempire.screwjam
     rect:
       serializedVersion: 2
       x: 689.9
-      y: 357.5
+      y: 336.9
       width: 114.2
       height: 32.6
   - url: https://play.google.com/store/apps/details?id=com.tapempire.woodpuzzle
     rect:
       serializedVersion: 2
       x: 804.6
-      y: 354
+      y: 333.8
       width: 134
       height: 32.6
   - url: https://store.steampowered.com/app/2336760/Immortal_Hunters
     rect:
       serializedVersion: 2
-      x: 571
-      y: 786.4
+      x: 575.9
+      y: 735.4
       width: 198.9
       height: 50
   - url: https://www.linkedin.com/company/ggwpworld/
     rect:
       serializedVersion: 2
       x: 570
-      y: 1337.4
+      y: 1199
       width: 84.1
       height: 50
   - url: https://playgendary.com/
     rect:
       serializedVersion: 2
       x: 574.5
-      y: 1704.2
+      y: 1539
       width: 149
       height: 50
   - url: https://drive.google.com/file/d/1pHCg96LxtqJD-Zn1r257YtpEVNGXlxaJ/view?usp=sharing
     rect:
       serializedVersion: 2
       x: 573
-      y: 2404.5
-      width: 183
+      y: 2166
+      width: 212.3
       height: 50
   - url: https://itorum.ru/
     rect:
       serializedVersion: 2
       x: 574
-      y: 2788.6
+      y: 2528
       width: 113
       height: 50
   - url: https://t.me/musli_kraba
     rect:
       serializedVersion: 2
       x: 24.1
-      y: 3370
-      width: 312.1
+      y: 3155
+      width: 259.6
       height: 45
   - url: mailto:whaledevelop@gmail.com
     rect:
       serializedVersion: 2
       x: 24.1
-      y: 3413
+      y: 3198
       width: 312.1
       height: 45
   - url: https://www.linkedin.com/in/nikita-serebriakov-897644261/
     rect:
       serializedVersion: 2
       x: 24.1
-      y: 3458
-      width: 312.1
-      height: 45
+      y: 3246
+      width: 466.4
+      height: 50.5
   - url: https://github.com/Whaledevelop
     rect:
       serializedVersion: 2
       x: 24.1
-      y: 3503
-      width: 312.1
+      y: 3301
+      width: 346.3
       height: 45
   - url: https://whaledevelop.itch.io/cave-miners
     rect:
       serializedVersion: 2
       x: 29.6
-      y: 2732
+      y: 2563
       width: 222
       height: 30
   - url: https://whaledevelop.itch.io/picture-start
     rect:
       serializedVersion: 2
       x: 29.6
-      y: 2760
+      y: 2591
       width: 221
       height: 30
   - url: https://github.com/Whaledevelop/ShipDuel
     rect:
       serializedVersion: 2
       x: 29.6
-      y: 2806
+      y: 2617
       width: 188.8
       height: 30
   - url: https://github.com/Whaledevelop/SoundForms
     rect:
       serializedVersion: 2
       x: 29.6
-      y: 2834
+      y: 2642
       width: 225
       height: 30
